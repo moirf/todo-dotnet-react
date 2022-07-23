@@ -30,6 +30,7 @@ namespace React_Sample
             services.AddControllersWithViews();
             services.AddDbContext<ApplicationDbContext>(options =>
             {
+                System.Console.WriteLine($"DbConnection: {Configuration.GetConnectionString("DbConnection")}");
                 options.UseSqlServer(Configuration.GetConnectionString("DbConnection"));
             }, ServiceLifetime.Transient);
 

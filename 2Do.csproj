@@ -7,9 +7,9 @@
     <IsPackable>false</IsPackable>
     <SpaRoot>ClientApp\</SpaRoot>
     <DefaultItemExcludes>$(DefaultItemExcludes);$(SpaRoot)node_modules\**</DefaultItemExcludes>
-    <RootNamespace>React_Sample</RootNamespace>
+    <RootNamespace>2Do</RootNamespace>
     <UserSecretsId>4e0312f3-3bfa-4847-9e6f-41c744dd4f74</UserSecretsId>
-    <AssemblyName>React-Sample</AssemblyName>
+    <AssemblyName>2Do</AssemblyName>
     <Nullable></Nullable>
   </PropertyGroup>
 
