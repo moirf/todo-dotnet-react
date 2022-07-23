@@ -17,7 +17,7 @@ export class NavMenu extends Component {
     }
 
     invokeSignInEvent = () => {
-        this.authService.SignIn()
+        this.authService.Authenticate()
     }
 
     invokeSignOutEvent = () => {

@@ -7,7 +7,15 @@ code {
     color: #E01A76;
 }
 
-.home {
+.small-root{
+    min-height: 60vh;
+}
+
+.large-root{
+    min-height: 90vh;
+}
+
+.todo-home {
     display: flex;
     flex-direction: column;
 }
@@ -83,14 +91,17 @@ code {
 }
 
 .layout {
+    display: flex; 
+    justify-content: center;
+    align-items:center;
     padding: 20px;
-    background-color: lightgray
+    background-color: lightgray;
+    min-height: 100vh;
 }
 
 .main-container {
     background-color: white;
     box-shadow: 1px 1px 5px 1px;
-    min-height: 90vh;
 }
 
 .loading-spinner {
@@ -98,7 +109,27 @@ code {
     height: 100px;
 }
 
-.todo-title {
+.login-page {
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.login-box {
+    padding: 100px;
+}
+
+.microsoft-sign-in{
+    border: 1px solid var(--secondary-color);
+    border-radius: 50px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    padding: 10px;
+}
+
+.page-title {
     width: 100%;
     text-align: center;
     padding: 20px;
@@ -113,7 +144,7 @@ code {
 }
 
 .add-todo-submit {
-    color: green;
+    color: var(--primary-color);
     margin-left: 10px;
     font-size: 50px;
     cursor: pointer;
@@ -147,7 +178,7 @@ code {
     list-style-type: none;
     border: 1px solid #ced4da;
 }
-
+    
     .autocomplete-list li {
         font-size: 1rem;
         color: gray;
@@ -155,6 +186,11 @@ code {
         padding-top: 5px;
         padding-bottom: 5px;
     }
+
+        .autocomplete-list li.chosen-suggestion{
+            background-color: lightblue;
+            cursor: pointer;
+        }
 
         .autocomplete-list li:hover {
             background-color: lightblue;

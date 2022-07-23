@@ -29,7 +29,7 @@ class TodoApiService {
         onFailureCallback = null) {
 
         onStartCallback && onStartCallback()
-        return this.AuthorizationService.GetToken()
+        return this.AuthorizationService.GetTodoApiToken()
             .then((response) => {
                 return this.AuthenticatedApi.get('todo', {
                     headers: {
@@ -72,7 +72,7 @@ class TodoApiService {
         onFailureCallback = null) {
 
         onStartCallback && onStartCallback()
-        return this.AuthorizationService.GetToken()
+        return this.AuthorizationService.GetTodoApiToken()
             .then((response) => {
                 return this.AuthenticatedApi.post(
                     'todo',
@@ -118,7 +118,7 @@ class TodoApiService {
         onFailureCallback = null) {
 
         onStartCallback && onStartCallback()
-        return this.AuthorizationService.GetToken()
+        return this.AuthorizationService.GetTodoApiToken()
             .then((response) => {
                 return this.AuthenticatedApi.put(
                     'todo',
@@ -163,7 +163,7 @@ class TodoApiService {
         onFailureCallback = null) {
 
         onStartCallback && onStartCallback()
-        return this.AuthorizationService.GetToken()
+        return this.AuthorizationService.GetTodoApiToken()
             .then((response) => {
                 return this.AuthenticatedApi.delete(
                     `todo/${id}`, {

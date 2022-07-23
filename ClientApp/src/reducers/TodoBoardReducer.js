@@ -190,7 +190,13 @@ const TodoBoardReducer = (state, action) => {
             return { ...state, isSaving: true }
         }
         case "ERROR": {
-            return { ...state, error: action.payload.message }
+            const error = action.payload
+            if (typeof (error) == "string")
+                return { ...state, error: error }
+            else if (typeof (error) == "object" && error instanceof Error)
+                return { ...state, error: error.message }
+            else
+                return { ...state, error: "Unhandled error: Error supplied to dispatch method not understood" }
         }
 
     /****************************************************************************************************************************************************************************************/

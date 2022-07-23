@@ -11,14 +11,11 @@ export class Layout extends Component {
 
     render() {
         return (
-            <div>
-                <NavMenu authService={this.authService} />
-                <div className="layout">
-                    <Container className="main-container">
-                        {this.props.children}
-                    </Container>    
-                </div>
-            </div>  
+            <div className="layout">
+                <Container className="main-container">
+                    {this.props.children}
+                </Container>
+            </div>
         );
     }
 }

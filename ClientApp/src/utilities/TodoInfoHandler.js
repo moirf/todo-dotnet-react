@@ -25,9 +25,9 @@ export default class TodoInfoHandler {
                 else if (cleanResult.startsWith(TodoInfoHandler.prioritySelector)) {
                     const priorityString = cleanResult.slice(TodoInfoHandler.prioritySelector.length, cleanResult.length).trim()
                     switch (priorityString) {
-                        case "low":
-                        case "med":
-                        case "high":
+                        case "3":
+                        case "2":
+                        case "1":
                             break
                         default: throw new Error("Invalid priority")
                     }                     
@@ -66,13 +66,13 @@ export default class TodoInfoHandler {
                 else if (cleanResult.startsWith(this.prioritySelector)) {
                     let priorityString = cleanResult.slice(this.prioritySelector.length, cleanResult.length).trim()
                     switch (priorityString) {
-                        case "low":
+                        case "3":
                             priority = TodoPriority.LOW
                             break
-                        case "med":
+                        case "2":
                             priority = TodoPriority.MED
                             break
-                        case "high":
+                        case "1":
                             priority = TodoPriority.HIGH
                             break
                         default:

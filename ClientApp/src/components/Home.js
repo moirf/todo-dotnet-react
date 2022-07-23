@@ -1,22 +1,21 @@
-import React, { Component, createContext } from 'react';
-import { Container, Button } from 'reactstrap';
-import { AuthenticatedTemplate, UnauthenticatedTemplate } from '@azure/msal-react';
+import React, { useState } from 'react';
+import { Redirect } from 'react-router-dom';
 import TodoHome from './todo/TodoHome';
 import TodoApiService from '../services/TodoApiService';
+import CalendarApiService from '../services/CalendarApiService';
 
 export const Home = ({ authService, appSettings }) => {
-    const apiService = new TodoApiService(appSettings.GetWebApiBaseUri(), authService)
+    const todoApiService = new TodoApiService(appSettings.GetWebApiBaseUri(), authService)
+    const calendarApiService = new CalendarApiService(appSettings.GetGraphApiBaseUri(), authService)
+
+    calendarApiService.getCalendarEvents()
 
     return (
         <div>
-            {authService.account
-                ? <div>
-                    <h1 className="todo-title">Todo Manager </h1>
-                    <TodoHome apiService={apiService}/>
-                 </div>
-                : <div>
-                     <h5 className="todo-title">Please sign-in to see your account data</h5>
-                 </div>}
+            <div>
+                <h1 className="page-title">Todo Manager </h1>
+                <TodoHome apiService={todoApiService} />
+            </div>
         </div>
     )
 }

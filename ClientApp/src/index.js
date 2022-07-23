@@ -7,6 +7,9 @@ import { Alert } from 'reactstrap';
 import registerServiceWorker from './registerServiceWorker';
 import AuthService from './services/AuthService';
 import AppSettingsService from './services/AppSettingsService';
+import * as microsoftTeams from "@microsoft/teams-js";
+
+import './themes.css'
 
 const baseUrl = document.getElementsByTagName('base')[0].getAttribute('href');
 const rootElement = document.getElementById('root');
@@ -17,12 +20,12 @@ export default PathContext
 let appSettings = new AppSettingsService();
 let authService = new AuthService(appSettings);
 
-authService.HandlePageLoadEvent().then(() => {
-
+microsoftTeams.initialize();
+authService.HandlePageLoadEvent().then(() => { 
     ReactDOM.render(
         <PathContext.Provider value={{ baseUrl }} >
             <Router basename={baseUrl}>
-                <App authService={authService} appSettings={appSettings} />
+                <App className="default" authService={authService} appSettings={appSettings} />
             </Router>
         </PathContext.Provider>,
         rootElement);
@@ -35,8 +38,7 @@ authService.HandlePageLoadEvent().then(() => {
             </Alert>
         </div>,
         rootElement)
-})
-
+});
 
 registerServiceWorker();
 

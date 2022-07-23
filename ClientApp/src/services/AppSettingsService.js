@@ -2,11 +2,17 @@
     GetWebApiBaseUri(){
         return process.env.REACT_APP_WEB_API_BASE_URI;
     }
+    GetGraphApiBaseUri() {
+        return process.env.REACT_APP_GRAPH_API_BASE_URI;
+    }
     GetMsalClientId() {
         return process.env.REACT_APP_MSAL_CLIENT_ID;
     }
     GetMsalClientScope(){
         return process.env.REACT_APP_MSAL_CLIENT_SCOPE;
+    }
+    GetMsalCalendarReadScope() {
+        return process.env.REACT_APP_MSAL_CALENDAR_READ_SCOPE;
     }
     GetMsalTenantAuthorityUri(){
         return process.env.REACT_APP_MSAL_TENANT_AUTHORITY_URI;

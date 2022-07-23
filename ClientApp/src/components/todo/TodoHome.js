@@ -74,7 +74,7 @@ const TodoHome = ({ apiService }) => {
     }
 
     return (
-        <div className="home">
+        <div className="todo-home large-root">
             {state.displaySaving && <div className="saving-bar">
                 <p className="todo-text" style={{ marginBottom: 0, color: "white" }}><b>Saving...</b></p>
             </div>}
@@ -89,7 +89,7 @@ const TodoHome = ({ apiService }) => {
                             color="info">{"Please enter input in the form:"}
                             <br /><br /> <b>task:</b> {"<task>"}
                             <br /> <b>duedate:</b> {"DD/MM/YYYY"}
-                            <br /> <b>priority:</b> {"<low|med|high>"}
+                            <br /> <b>priority:</b> {"1|2|3"}
                             <br /><br /> {"Separator #"}</Alert>
                     </Col>
                     <Col xs="12" md="8">

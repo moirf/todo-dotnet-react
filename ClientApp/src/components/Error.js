@@ -6,7 +6,7 @@ export const Error = () => {
     const location = useLocation()
 
     return (
-        <div>
+        <div className="large-root">
             <h1 className="error-title">Error</h1>
             <Alert color="danger">
                 {location.state.message}
