@@ -7,10 +7,10 @@ using Microsoft.AspNetCore.SpaServices.ReactDevelopmentServer;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using React_Sample.Data;
+using ToDo.Data;
 using Microsoft.EntityFrameworkCore;
-using React_Sample.Repositories;
-using React_Sample.Services;
+using ToDo.Repositories;
+using ToDo.Services;
 
 namespace React_Sample
 {
@@ -73,7 +73,7 @@ namespace React_Sample
                 app.UseHsts();
             }
 
-            app.UseHttpsRedirection();
+            //app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseSpaStaticFiles();
 
@@ -95,7 +95,7 @@ namespace React_Sample
 
                 if (env.IsDevelopment())
                 {
-                    spa.UseProxyToSpaDevelopmentServer("https://localhost:3000");
+                    spa.UseProxyToSpaDevelopmentServer("http://localhost:5000");
                 }
             });
         }

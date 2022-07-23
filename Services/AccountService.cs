@@ -4,10 +4,10 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Security.Claims;
 using Microsoft.Extensions.Configuration;
-using React_Sample.Repositories;
-using React_Sample.Models;
+using ToDo.Repositories;
+using ToDo.Models;
 
-namespace React_Sample.Services
+namespace ToDo.Services
 {
     public class AccountService : IAccountService
     {

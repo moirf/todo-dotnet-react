@@ -1,10 +1,10 @@
-﻿using React_Sample.Models;
+﻿using ToDo.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace React_Sample.Repositories
+namespace ToDo.Repositories
 {
     public interface IAccountRepository
     {

@@ -5,9 +5,9 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using React_Sample.Data;
+using ToDo.Data;
 
-namespace React_Sample.Migrations
+namespace ToDo.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
     [Migration("20210325204508_Update-Database-Schema")]
@@ -21,7 +21,7 @@ namespace React_Sample.Migrations
                 .HasAnnotation("ProductVersion", "5.0.3")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-            modelBuilder.Entity("React_Sample.Models.Account", b =>
+            modelBuilder.Entity("ToDo.Models.Account", b =>
                 {
                     b.Property<string>("Id")
                         .HasColumnType("nvarchar(450)");
@@ -40,7 +40,7 @@ namespace React_Sample.Migrations
                     b.ToTable("Accounts");
                 });
 
-            modelBuilder.Entity("React_Sample.Models.Todo", b =>
+            modelBuilder.Entity("ToDo.Models.Todo", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -72,9 +72,9 @@ namespace React_Sample.Migrations
                     b.ToTable("Todos");
                 });
 
-            modelBuilder.Entity("React_Sample.Models.Todo", b =>
+            modelBuilder.Entity("ToDo.Models.Todo", b =>
                 {
-                    b.HasOne("React_Sample.Models.Account", "Account")
+                    b.HasOne("ToDo.Models.Account", "Account")
                         .WithMany()
                         .HasForeignKey("AccountId");
 

@@ -5,7 +5,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace React_Sample.Models
+namespace ToDo.Models
 {
     public enum TodoPriority
     {

@@ -1,7 +1,7 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace React_Sample.Migrations
+namespace ToDo.Migrations
 {
     public partial class UpdateDatabaseSchema : Migration
     {

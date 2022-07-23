@@ -2,15 +2,15 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
-using React_Sample.Models;
-using React_Sample.Repositories;
-using React_Sample.Services;
+using ToDo.Models;
+using ToDo.Repositories;
+using ToDo.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace React_Sample.Controllers
+namespace ToDo.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]

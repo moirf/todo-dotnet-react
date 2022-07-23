@@ -4,7 +4,7 @@ using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
 
-namespace React_Sample.Services
+namespace ToDo.Services
 {
     public interface IAccountService
     {
