@@ -13,6 +13,8 @@ class AuthService {
             throw new Error('the app settings service was not provided');
         }
 
+        microsoftTeams.initialize();
+
         this.appSettings = appSettings;
 
         let msalConfig = appSettings.GetMsalClientConfiguration();

@@ -20,7 +20,7 @@ export default PathContext
 let appSettings = new AppSettingsService();
 let authService = new AuthService(appSettings);
 
-microsoftTeams.initialize();
+microsoftTeams.app.initialize();
 authService.HandlePageLoadEvent().then(() => { 
     ReactDOM.render(
         <PathContext.Provider value={{ baseUrl }} >

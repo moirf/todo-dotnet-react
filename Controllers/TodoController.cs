@@ -27,34 +27,42 @@ namespace ToDo.Controllers
             _accountService = accountService;
         }
 
+        [HttpGet("/ServiceCheck")]
+        public ActionResult GetServiceCheck()
+        {
+            return Ok("Sevice working!!");
+        }
+
         [HttpGet("")]
-        [Authorize(Roles = "User, Admin")]
+        //[Authorize(Roles = "User, Admin")]
         public async Task<ActionResult<IEnumerable<TodoViewModel>>> GetTodos()
         {
             try
             {
                 var userId = await _accountService.HandleUserAsync(User);
 
-                var todos =_repository.GetTodos(userId);
+                var todos = _repository.GetTodos(userId);
                 var todoViewModels = todos
                     .OrderBy(todo => todo.ColumnIndex)
-                    .Select(todo => new TodoViewModel { 
-                        Id = todo.Id, 
-                        Priority = todo.Priority, 
-                        Task = todo.Task, 
-                        Completed = todo.Completed, 
-                        DueDate = $"{todo.DueDate:yyyy/MM/dd}" });
+                    .Select(todo => new TodoViewModel
+                    {
+                        Id = todo.Id,
+                        Priority = todo.Priority,
+                        Task = todo.Task,
+                        Completed = todo.Completed,
+                        DueDate = $"{todo.DueDate:yyyy/MM/dd}"
+                    });
 
                 return Ok(todoViewModels);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 return StatusCode(StatusCodes.Status500InternalServerError, new { Status = "Fail", Message = ex.Message });
             }
         }
 
         [HttpPut("")]
-        [Authorize(Roles = "User, Admin")]
+        //[Authorize(Roles = "User, Admin")]
         public async Task<IActionResult> PutTodos([FromBody] IEnumerable<Todo> todos)
         {
             try
@@ -62,20 +70,20 @@ namespace ToDo.Controllers
                 var userId = await _accountService.HandleUserAsync(User);
                 todos.ToList().ForEach(todo =>
                 {
-                    todo.AccountId = userId;                        
+                    todo.AccountId = userId;
                 });
 
                 await _repository.UpdateTodos(todos);
                 return Ok();
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 return StatusCode(StatusCodes.Status500InternalServerError, new { Status = "Fail", Message = ex.Message });
             }
         }
 
         [HttpDelete("{todoId}")]
-        [Authorize(Roles = "User, Admin")]
+        //[Authorize(Roles = "User, Admin")]
         public async Task<IActionResult> DeleteTodo(int todoId)
         {
             try
@@ -91,14 +99,14 @@ namespace ToDo.Controllers
                 await _repository.DeleteTodo(todoId);
                 return Ok();
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 return StatusCode(StatusCodes.Status500InternalServerError, new { Status = "Fail", Message = ex.Message });
             }
         }
 
         [HttpPost("")]
-        [Authorize(Roles = "User, Admin")]
+        //[Authorize(Roles = "User, Admin")]
         public async Task<ActionResult<int>> PostTodo([FromBody] Todo todo)
         {
             try
@@ -108,7 +116,7 @@ namespace ToDo.Controllers
                 var todoId = await _repository.AddTodo(todo);
                 return Ok(todoId);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 return StatusCode(StatusCodes.Status500InternalServerError, new { Status = "Fail", Message = ex.Message });
             }

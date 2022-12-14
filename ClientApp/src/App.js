@@ -14,8 +14,6 @@ import * as microsoftTeams from "@microsoft/teams-js";
 import './custom.css'
 import './bootstrap-icons.css'
 
-const api_key = "4N88j5RxdnlaC5FKWhgOW8cYGp4x2ubXBgWQzHYh"
-
 export default class App extends Component {
     constructor(props) {
         super(props)
