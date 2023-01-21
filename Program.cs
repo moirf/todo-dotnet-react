@@ -1,11 +1,15 @@
 using Microsoft.EntityFrameworkCore;
 using ToDo.Db;
+using ToDo.Repositories;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
 builder.Services.AddControllers();
+builder.Services.AddScoped<ITodoRepository, TodoRepository>();
+builder.Services.AddAutoMapper(typeof(Program));
+
 builder.Services.AddDbContext<TodosDbContext>(options =>
 {
     options.UseInMemoryDatabase("Todos");
