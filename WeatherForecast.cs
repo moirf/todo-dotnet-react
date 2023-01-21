@@ -1,4 +1,4 @@
-namespace todo_api_dotnet;
+namespace ToDo;
 
 public class WeatherForecast
 {
