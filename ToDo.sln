@@ -5,6 +5,8 @@ VisualStudioVersion = 17.4.33213.308
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ToDo.Api", "ToDo.Api\ToDo.Api.csproj", "{62D25E11-1DCB-4AC3-9A09-69C87488304C}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ToDo.Api.Tests", "ToDo.Api.Tests\ToDo.Api.Tests.csproj", "{99E2E58A-79F1-47CF-9122-D2C13142989E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{62D25E11-1DCB-4AC3-9A09-69C87488304C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{62D25E11-1DCB-4AC3-9A09-69C87488304C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{62D25E11-1DCB-4AC3-9A09-69C87488304C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{99E2E58A-79F1-47CF-9122-D2C13142989E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{99E2E58A-79F1-47CF-9122-D2C13142989E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{99E2E58A-79F1-47CF-9122-D2C13142989E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{99E2E58A-79F1-47CF-9122-D2C13142989E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
