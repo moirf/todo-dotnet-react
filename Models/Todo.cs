@@ -15,9 +15,4 @@ public class Todo
     public string Task { get; set; }
     public DateTime DueDate { get; set; }
     public bool Completed { get; set; }
-    public string AccountId { get; set; }
-    public int ColumnIndex { get; set; }
-    public Priority Priority { get; set; }
-
-    // public virtual Account Account { get; set; }
 }

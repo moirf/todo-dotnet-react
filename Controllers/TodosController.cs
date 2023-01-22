@@ -36,64 +36,67 @@ public class TodosController : ControllerBase
         return NotFound();
     }
 
-    // [HttpPut("")]
-    // //[Authorize(Roles = "User, Admin")]
-    // public async Task<IActionResult> PutTodos([FromBody] IEnumerable<Todo> todos)
-    // {
-    //     try
-    //     {
-    //         var userId = await _accountService.HandleUserAsync(User);
-    //         todos.ToList().ForEach(todo =>
-    //         {
-    //             todo.AccountId = userId;
-    //         });
+    [HttpGet("{id}")]
+    //[Authorize(Roles = "User, Admin")]
+    public async Task<ActionResult> GetTodoAsync(int id)
+    {
+        var result = await _todoRepository.GetTodoAsync(id);
+        if (result.IsSuccess)
+        {
+            return Ok(result.Todo);
+        }
+        return NotFound();
+    }
 
-    //         await _repository.UpdateTodos(todos);
-    //         return Ok();
-    //     }
-    //     catch (Exception ex)
-    //     {
-    //         return StatusCode(StatusCodes.Status500InternalServerError, new { Status = "Fail", Message = ex.Message });
-    //     }
-    // }
+    [HttpPut]
+    //[Authorize(Roles = "User, Admin")]
+    public async Task<ActionResult> UpdateTodosAsync([FromBody] IEnumerable<Models.Todo> todos)
+    {
 
-    // [HttpDelete("{todoId}")]
-    // //[Authorize(Roles = "User, Admin")]
-    // public async Task<IActionResult> DeleteTodo(int todoId)
-    // {
-    //     try
-    //     {
-    //         var userId = await _accountService.HandleUserAsync(User);
-    //         var todo = await _repository.GetTodo(todoId);
+        // var userId = await _accountService.HandleUserAsync(User);
+        // todos.ToList().ForEach(todo =>
+        // {
+        //     todo.AccountId = userId;
+        // });
+        var result = await _todoRepository.UpdateTodosAsync(todos);
+        if (result.IsSuccess)
+        {
+            return Ok(result.Todos);
+        }
+        else
+        {
+            return NotFound(result.ErroMessage);
+        }
 
-    //         if (todo == null)
-    //             throw new ArgumentException($"todo id: {todoId} was not found in database");
-    //         if (!todo.AccountId.Equals(userId))
-    //             throw new ArgumentException($"Todo was not associated with logged in user: {userId}");
+    }
 
-    //         await _repository.DeleteTodo(todoId);
-    //         return Ok();
-    //     }
-    //     catch (Exception ex)
-    //     {
-    //         return StatusCode(StatusCodes.Status500InternalServerError, new { Status = "Fail", Message = ex.Message });
-    //     }
-    // }
+    [HttpDelete("{id}")]
+    //[Authorize(Roles = "User, Admin")]
+    public async Task<IActionResult> DeleteTodoAsync(int id)
+    {
+        var result = await _todoRepository.DeleteTodoAsync(id);
+        if (result.IsSuccess)
+        {
+            return Ok($"Todo deleted with Id => {id}");
+        }
+        else
+        {
+            return NotFound(result.ErroMessage);
+        }
+    }
 
-    // [HttpPost("")]
-    // //[Authorize(Roles = "User, Admin")]
-    // public async Task<ActionResult<int>> PostTodo([FromBody] Todo todo)
-    // {
-    //     try
-    //     {
-    //         var userId = await _accountService.HandleUserAsync(User);
-    //         todo.AccountId = userId;
-    //         var todoId = await _repository.AddTodo(todo);
-    //         return Ok(todoId);
-    //     }
-    //     catch (Exception ex)
-    //     {
-    //         return StatusCode(StatusCodes.Status500InternalServerError, new { Status = "Fail", Message = ex.Message });
-    //     }
-    // }
+    [HttpPost]
+    //[Authorize(Roles = "User, Admin")]
+    public async Task<ActionResult> AddTodosAsync([FromBody] IEnumerable<Models.Todo> todos)
+    {
+        var result = await _todoRepository.AddTodosAsync(todos);
+        if (result.IsSuccess)
+        {
+            return Ok(result.Todos);
+        }
+        else
+        {
+            return NotFound(result.ErroMessage);
+        }
+    }
 }

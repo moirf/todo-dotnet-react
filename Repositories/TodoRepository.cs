@@ -1,11 +1,6 @@
-﻿using ToDo.Models;
-using System;
-using System.Collections.Generic;
+﻿using AutoMapper;
 using Microsoft.EntityFrameworkCore;
-using System.Linq;
-using System.Threading.Tasks;
 using ToDo.Db;
-using AutoMapper;
 
 namespace ToDo.Repositories;
 public class TodoRepository : ITodoRepository
@@ -24,67 +19,104 @@ public class TodoRepository : ITodoRepository
 
     private void SeedData()
     {
-        if(!_dbContext.Todos.Any())
+        if (!_dbContext.Todos.Any())
         {
-            _dbContext.Todos.Add(new Db.Todo(){ Id=1, Task="Todo 1", DueDate=DateTime.Now, Completed=false});
-            _dbContext.Todos.Add(new Db.Todo(){ Id=2, Task="Todo 2", DueDate=DateTime.Now, Completed=false});
-            _dbContext.Todos.Add(new Db.Todo(){ Id=3, Task="Todo 3", DueDate=DateTime.Now, Completed=false});
-            _dbContext.Todos.Add(new Db.Todo(){ Id=4, Task="Todo 4", DueDate=DateTime.Now, Completed=false});
-            _dbContext.Todos.Add(new Db.Todo(){ Id=5, Task="Todo 5", DueDate=DateTime.Now, Completed=false});
+            _dbContext.Todos.Add(new Db.Todo() { Id = 1, Task = "Todo 1", DueDate = DateTime.Now, Completed = false });
+            _dbContext.Todos.Add(new Db.Todo() { Id = 2, Task = "Todo 2", DueDate = DateTime.Now, Completed = false });
+            _dbContext.Todos.Add(new Db.Todo() { Id = 3, Task = "Todo 3", DueDate = DateTime.Now, Completed = false });
+            _dbContext.Todos.Add(new Db.Todo() { Id = 4, Task = "Todo 4", DueDate = DateTime.Now, Completed = false });
+            _dbContext.Todos.Add(new Db.Todo() { Id = 5, Task = "Todo 5", DueDate = DateTime.Now, Completed = false });
             _dbContext.SaveChanges();
         }
     }
-
-    // public IEnumerable<Models.Todo> GetTodos()
-    // {
-    //     string userId = "1"; //[ToDo] get it from accesstoken
-    //     return _dbContext.Todos
-    //         .Where(todo => todo.Id.Equals(userId))
-    //         .OrderByDescending(todo => todo.DueDate);
-    // }
-
-    // public async Task<Models.Todo> GetTodo(int todoId)
-    // {
-    //     return await _context.Todos.FindAsync(todoId);
-    // }
-
-    // public async Task UpdateTodos(IEnumerable<Models.Todo> todos)
-    // {
-    //     _context.Todos.UpdateRange(todos);
-    //     await _context.SaveChangesAsync();
-    // }
-
-    // public async Task DeleteTodo(int id)
-    // {
-    //     Models.Todo todo = await _context.Todos.FindAsync(id);
-    //     _context.Todos.Remove(todo);
-    //     await _context.SaveChangesAsync();
-    // }
-
-    // public async Task<int> AddTodo(Models.Todo todo)
-    // {
-    //     await _context.Todos.AddAsync(todo);
-    //     await _context.SaveChangesAsync();
-
-    //     return todo.Id;
-    // }
 
     public async Task<(bool IsSuccess, IEnumerable<Models.Todo> Todos, string ErroMessage)> GetTodosAsync()
     {
         try
         {
             var todos = await _dbContext.Todos.ToListAsync();
-            if(todos!=null && todos.Any())
+            if (todos != null && todos.Any())
             {
                 var result = _mapper.Map<IEnumerable<Db.Todo>, IEnumerable<Models.Todo>>(todos);
-                return(true, result, null);
+                return (true, result, null);
             }
-            return(false, null, "Not found.");
+            return (false, null, "Not found.");
         }
         catch (Exception ex)
         {
             _logger.LogError(ex.ToString());
-            return(false, null, ex.Message);
+            return (false, null, ex.Message);
+        }
+    }
+
+    public async Task<(bool IsSuccess, Models.Todo Todo, string ErroMessage)> GetTodoAsync(int id)
+    {
+        try
+        {
+            var todo = await _dbContext.Todos.FindAsync(id);
+            if (todo != null)
+            {
+                var result = _mapper.Map<Db.Todo, Models.Todo>(todo);
+                return (true, result, null);
+            }
+            return (false, null, "Not found.");
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex.ToString());
+            return (false, null, ex.Message);
+        }
+    }
+
+    public async Task<(bool IsSuccess, IEnumerable<Models.Todo> Todos, string ErroMessage)> UpdateTodosAsync(IEnumerable<Models.Todo> todos)
+    {
+        try
+        {
+            var dbTodos = _mapper.Map<IEnumerable<Models.Todo>, IEnumerable<Db.Todo>>(todos);
+            _dbContext.Todos.UpdateRange(dbTodos);
+            await _dbContext.SaveChangesAsync();
+            return (true, todos, null);
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex.ToString());
+            return (false, null, ex.Message);
+        }
+    }
+
+    public async Task<(bool IsSuccess, string ErroMessage)> DeleteTodoAsync(int id)
+    {
+        try
+        {
+            var todo = await _dbContext.Todos.FindAsync(id);
+            if (todo != null)
+            {
+                _dbContext.Todos.Remove(todo);
+                await _dbContext.SaveChangesAsync();
+                return (true, null);
+            }
+            return (false, "Not found.");
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex.ToString());
+            return (false, ex.Message);
+        }
+    }
+
+    public async Task<(bool IsSuccess, IEnumerable<Models.Todo> Todos, string ErroMessage)> AddTodosAsync(IEnumerable<Models.Todo> todos)
+    {
+        try
+        {
+            var dbTodos = _mapper.Map<IEnumerable<Models.Todo>, IEnumerable<Db.Todo>>(todos);
+            await _dbContext.Todos.AddRangeAsync(dbTodos);
+            await _dbContext.SaveChangesAsync();
+            return (true, todos, null);
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex.ToString());
+            return (false, null, ex.Message);
         }
     }
 }
