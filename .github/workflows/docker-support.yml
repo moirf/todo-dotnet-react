@@ -13,7 +13,7 @@ jobs:
 
     steps:
     - uses: actions/checkout@v3
-      name: Build the Docker image
+    - name: Build the Docker image
       run: docker build . --file ToDo.Api/Dockerfile --tag ${{ secrets.REGISTRY_LOGIN_SERVER }}/TodoApi:$(date +%s)
       
     - name: Push the docker image to acr registry
@@ -22,4 +22,4 @@ jobs:
         login-server: ${{ secrets.REGISTRY_LOGIN_SERVER }}
         username: ${{ secrets.REGISTRY_USERNAME }}
         password: ${{ secrets.REGISTRY_PASSWORD }}
-      run: docker push ${{ secrets.REGISTRY_LOGIN_SERVER }}/TodoApi:$(date +%s)
+    - run: docker push ${{ secrets.REGISTRY_LOGIN_SERVER }}/TodoApi:$(date +%s)
