@@ -19,7 +19,7 @@ jobs:
       with:
         dotnet-version: 7.0.x
     - name: Restore dependencies
-      run: dotnet restore .\ToDo.Api\ToDo.Api.csproj
+      run: dotnet restore .\ToDo.sln
     - name: Build
       run: dotnet build .\ToDo.Api\ToDo.Api.csproj --no-restore
     - name: Test
