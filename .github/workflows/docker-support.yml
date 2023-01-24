@@ -21,9 +21,9 @@ jobs:
     - name: Restore dependencies
       run: dotnet restore
     - name: Build
-      run: dotnet build --no-restore
+      run: dotnet build .\ToDo.Api\ToDo.Api.csproj --no-restore
     - name: Test
-      run: dotnet test --no-build --verbosity normal
+      run: dotnet test .\ToDo.Api.Tests\ToDo.Api.Tests.csproj --verbosity normal
 
   imaging:
     runs-on: ubuntu-latest
