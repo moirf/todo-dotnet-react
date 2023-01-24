@@ -9,12 +9,29 @@ on:
 jobs:
 
   build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v3
+      with:
+        dotnet-version: 7.0.x
+    - name: Restore dependencies
+      run: dotnet restore
+    - name: Build
+      run: dotnet build --no-restore
+    - name: Test
+      run: dotnet test --no-build --verbosity normal
+
+  imaging:
     runs-on: ubuntu-latest
 
     steps:
     - uses: actions/checkout@v3
     - name: Build the Docker image
-      run: docker build . --file ToDo.Api/Dockerfile --tag ${{ secrets.REGISTRY_LOGIN_SERVER }}/todoapi.v:$(date +%Y.%m.%d)
+      run: docker build . --file ToDo.Api/Dockerfile --tag ${{ secrets.REGISTRY_LOGIN_SERVER }}/todoapi:latest
       
     - name: Push the docker image to acr registry
       uses: azure/docker-login@v1
@@ -22,4 +39,4 @@ jobs:
         login-server: ${{ secrets.REGISTRY_LOGIN_SERVER }}
         username: ${{ secrets.REGISTRY_USERNAME }}
         password: ${{ secrets.REGISTRY_PASSWORD }}
-    - run: docker push ${{ secrets.REGISTRY_LOGIN_SERVER }}/todoapi.v:$(date +%Y.%m.%d)
+    - run: docker push ${{ secrets.REGISTRY_LOGIN_SERVER }}/todoapi:latest
