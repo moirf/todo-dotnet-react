@@ -2,9 +2,14 @@ name: ci - docker build and image push
 
 on:
   push:
-    branches: [ "main" ]
-  pull_request:
-    branches: [ "main" ]
+    branches:
+      - main
+      - dev
+  workflow_dispatch:
+
+permissions:
+  id-token: write
+  contents: read
 
 jobs:
 
