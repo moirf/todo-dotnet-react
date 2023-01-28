@@ -1,34 +1,26 @@
 import React, { Component } from 'react';
-import { Redirect, Route } from 'react-router';
-import { Layout } from './components/Layout';
-import { Home } from './components/Home';
-import { Switch } from 'react-router-dom';
-import { Error } from './components/Error';
-import { Privacy } from './components/Privacy';
-import { TermsOfUse } from './components/TermsOfUse';
-import { TabAuth } from './components/auth/TabAuth';
-import { TabConfig } from './components/TabConfig';
-import { Login } from './components/auth/Login';
-import * as microsoftTeams from "@microsoft/teams-js";
-import './custom.css';
-import './bootstrap-icons.css';
+import './custom.css'
+import './bootstrap-icons.css'
+
+
 export default class App extends Component {
     constructor(props) {
-        super(props);
-        this.invokeSignInEvent = () => {
-            this.authService.Authenticate()
-                .then(() => {
-                if (this.authService.account)
-                    this.setState({ ...this.state, isLoggedIn: true });
-            });
-        };
-        this.authService = props.authService;
-        this.appSettings = props.appSettings;
+        super(props)
         this.state = {
             isLoggedIn: false,
             context: {}
-        };
+        }
     }
+    static displayName = App.name;
+
+    invokeSignInEvent = () => {
+        this.authService.Authenticate()
+            .then(() => {
+                if (this.authService.account)
+                    this.setState({ ...this.state, isLoggedIn: true })
+            })
+    }
+
     //React lifecycle method that gets called once a component has finished mounting
     //Learn more: https://reactjs.org/docs/react-component.html#componentdidmount
     componentDidMount() {
@@ -40,18 +32,22 @@ export default class App extends Component {
         });
         // Next steps: Error handling using the error object
     }
+
     render() {
-        return (<Layout authService={this.authService}>
+        return (
+            <Layout authService={this.authService}>
                 <Switch>
                     <Route exact path='/'>
                         {!this.state.isLoggedIn
-            ? <Redirect to='/login'/>
-            : <Redirect to='/home'/>}
+                            ? <Redirect to='/login' />
+                            : <Redirect to='/home' />
+                        }
                     </Route>
                     <Route path='/home'>
                         {!this.state.isLoggedIn
-            ? <Redirect to='/login'/>
-            : <Home authService={this.authService} appSettings={this.appSettings}/>}                        
+                            ? <Redirect to='/login' />
+                            : <Home authService={this.authService} appSettings={this.appSettings} />
+                        }                        
                     </Route>
                     <Route path='/error'>
                         <Error />
@@ -60,12 +56,13 @@ export default class App extends Component {
                         <TabConfig />
                     </Route>
                     <Route path='/tab-auth'>
-                        <TabAuth authService={this.authService}/>
+                        <TabAuth authService={this.authService} />
                     </Route>
                     <Route path='/login'>
                         {this.state.isLoggedIn
-            ? <Redirect to='/home'/>
-            : <Login signIn={this.invokeSignInEvent}/>}
+                            ? <Redirect to='/home' />
+                            : <Login signIn={this.invokeSignInEvent} />
+                        }
                     </Route>
                     <Route path='/privacy'>
                         <Privacy />
@@ -74,7 +71,7 @@ export default class App extends Component {
                         <TermsOfUse />
                     </Route>
                 </Switch>
-            </Layout>);
+            </Layout>
+        );
     }
 }
-App.displayName = App.name;
