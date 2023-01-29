@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { Draggable } from 'react-beautiful-dnd'
-import TodoPriority from '../../utilities/TodoPriority'
+import { Priority } from '../../utilities/Constants'
 import {
     Card, CardBody, CardTitle, CardHeader, Modal,
     ModalHeader, ModalBody, ModalFooter, Button,
@@ -8,7 +8,19 @@ import {
 } from 'reactstrap'
 import TodoEditForm from './TodoEditForm'
 
-const Todo = ({ id, index, task, dueDate, priority, completed, dispatch }) => {
+interface IProps {
+    id: number,
+    index: number,
+    task: string,
+    dueDate: Date,
+    priority: number,
+    completed: boolean,
+    dispatch:any
+}
+const Todo = (props:IProps) => {
+
+    const { id, index, task, dueDate, priority, completed, dispatch } = props;
+
     const [deleteModal, setDeleteModal] = useState(false)
     const [editModal, setEditModal] = useState(false)
 
@@ -17,13 +29,13 @@ const Todo = ({ id, index, task, dueDate, priority, completed, dispatch }) => {
 
     let todoBorderColor
     switch (priority) {
-        case TodoPriority.LOW:
+        case Priority.LOW:
             todoBorderColor = "green"
             break;
-        case TodoPriority.MED:
+        case Priority.MED:
             todoBorderColor = "orange"
             break;
-        case TodoPriority.HIGH:
+        case Priority.HIGH:
             todoBorderColor = "red"
             break;
     }
