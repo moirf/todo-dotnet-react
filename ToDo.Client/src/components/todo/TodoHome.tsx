@@ -1,11 +1,11 @@
 import React, { useEffect, useContext, useReducer, useRef } from "react"
 import { Alert, Row, Col, Container } from 'reactstrap'
-import { Redirect } from 'react-router-dom'
+//import { Redirect } from 'react-router-dom'
 import TodoBoardReducer from '../../reducers/TodoBoardReducer'
 import TodoBoard from './TodoBoard'
-import AutoCompleteTodoInput from "./AutoCompleteTodoInput"
+//import AutoCompleteTodoInput from "./AutoCompleteTodoInput"
 
-const TodoHome = ({ apiService }) => {
+const TodoHome = () => {
     const [state, dispatch] = useReducer(TodoBoardReducer,
         {
             todos: [],
@@ -21,57 +21,57 @@ const TodoHome = ({ apiService }) => {
     const timeoutRef = useRef(-1)
 
     useEffect(() => {
-        apiService.getUserTodos(
-            () => dispatch({ type: "SET_LOADING" }),
-            (data) => dispatch({ type: "API_GET", payload: data }),
-            (err) => dispatch({ type: "ERROR", payload: err }))
+        // apiService.getUserTodos(
+        //     () => dispatch({ type: "SET_LOADING" }),
+        //     (data) => dispatch({ type: "API_GET", payload: data }),
+        //     (err) => dispatch({ type: "ERROR", payload: err }))
     }, [])
 
     useEffect(() => {
         if (isMounted.current) {
             let timeoutId
-            if (state.isSaving) {
-                clearTimeout(timeoutRef.current)
-                !state.displaySaving && dispatch({ type: "TOGGLE_DISPLAY_SAVING" })
-            }
-            else {
-                timeoutId = setTimeout(() => dispatch({ type: "TOGGLE_DISPLAY_SAVING" }), 1000)
-                timeoutRef.current = timeoutId
-            }
+            // if (state.isSaving) {
+            //     clearTimeout(timeoutRef.current)
+            //     !state.displaySaving && dispatch({ type: "TOGGLE_DISPLAY_SAVING" })
+            // }
+            // else {
+            //     timeoutId = setTimeout(() => dispatch({ type: "TOGGLE_DISPLAY_SAVING" }), 1000)
+            //     timeoutRef.current = timeoutId
+            // }
 
         } else { isMounted.current = true }
     }, [state.isSaving])
 
     useEffect(() => {
         const apiUpdates = state.apiUpdates
-        const onStartCallback       = () => dispatch({ type: "SET_SAVING" })
-        const onSuccessCallback     = () => dispatch({ type: "API_UPDATE" })
-        const onPostSuccessCallback = (id) => dispatch({ type: "API_POST", payload: id })
-        const onFailCallback        = (err) => dispatch({ type: "ERROR", payload: err })
+        // const onStartCallback       = () => dispatch({ type: "SET_SAVING" })
+        // const onSuccessCallback     = () => dispatch({ type: "API_UPDATE" })
+        // const onPostSuccessCallback = (id) => dispatch({ type: "API_POST", payload: id })
+        // const onFailCallback        = (err) => dispatch({ type: "ERROR", payload: err })
 
-        apiUpdates.forEach(apiUpdate => {
-            switch (apiUpdate.type) {
-                case "POST":
-                    apiService.postUserTodo(apiUpdate.data, onStartCallback, onPostSuccessCallback, onFailCallback)
-                    break;
-                case "DELETE":
-                    apiService.deleteUserTodo(apiUpdate.data, onStartCallback, onSuccessCallback, onFailCallback)
-                    break
-                case "PUT":
-                    apiService.putUserTodo(apiUpdate.data, onStartCallback, onSuccessCallback, onFailCallback)
-                    break
-                default:
-                    dispatch({ type: "ERROR", payload: { message: "Unrecognized update type should be one of: POST, DELETE, PUT" } })
-            }
-        })
+        // apiUpdates.forEach(apiUpdate => {
+        //     switch (apiUpdate.type) {
+        //         case "POST":
+        //             apiService.postUserTodo(apiUpdate.data, onStartCallback, onPostSuccessCallback, onFailCallback)
+        //             break;
+        //         case "DELETE":
+        //             apiService.deleteUserTodo(apiUpdate.data, onStartCallback, onSuccessCallback, onFailCallback)
+        //             break
+        //         case "PUT":
+        //             apiService.putUserTodo(apiUpdate.data, onStartCallback, onSuccessCallback, onFailCallback)
+        //             break
+        //         default:
+        //             // dispatch({ type: "ERROR", payload: { message: "Unrecognized update type should be one of: POST, DELETE, PUT" } })
+        //     }
+        // })
     }, [state.apiUpdates])
 
-    if (state.error) {
-        return <Redirect to={{
-            pathname: "/error",
-            state: { message: state.error }
-        }} />
-    }
+    // if (state.error) {
+    //     return <Redirect to={{
+    //         pathname: "/error",
+    //         state: { message: state.error }
+    //     }} />
+    // }
 
     return (
         <div className="todo-home large-root">
@@ -93,7 +93,7 @@ const TodoHome = ({ apiService }) => {
                             <br /><br /> {"Separator #"}</Alert>
                     </Col>
                     <Col xs="12" md="8">
-                        <AutoCompleteTodoInput onSubmit={(input) => dispatch({ type: "SUBMIT", payload: input })} />
+                        {/* <AutoCompleteTodoInput onSubmit={(input) => dispatch({ type: "SUBMIT", payload: input })} /> */}
                     </Col>
                 </Row>
                 <Row>

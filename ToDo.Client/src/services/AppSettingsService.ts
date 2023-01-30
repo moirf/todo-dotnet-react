@@ -38,14 +38,13 @@ class AppSettingsService {
     GetMsalStoreAuthInCookie() {
         let stringValue = process.env.REACT_APP_MSAL_AUTH_STATE_IN_COOKIE;
 
-        if (stringValue.toLowerCase() === 'true') {
+        if(stringValue?.toLowerCase()==='true')
+        {
             return true;
         }
-        else if (stringValue.toLowerCase() === 'false') {
+        else
+        {
             return false;
-        }
-        else {
-            throw new Error('MSAL_AUTH_STATE_IN_COOKIE setting is not a valid boolean.');
         }
     }
     GetLoginRedirectUri(){

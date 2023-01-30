@@ -1,10 +1,19 @@
 import React from "react";
 import { Fade } from "reactstrap";
 
-const Display = ({ url, explanation, title, fadeIn, setFadeIn }) => {
+interface IProps {
+    url: string,
+    explanation: string,
+    title: string, 
+    fadeIn:boolean,
+    setFadeIn:(state: boolean)=>{}
+}
 
+const Display = (props: IProps) => {
+
+    const {url, explanation, title, fadeIn, setFadeIn} = props;
     console.log(url)
-    const onLoadHandler = (event) => {
+    const onLoadHandler = () => {
         console.log("onLoad triggered")
         !fadeIn && setFadeIn(true)
     }
@@ -18,7 +27,7 @@ const Display = ({ url, explanation, title, fadeIn, setFadeIn }) => {
         color: "white",
         fontSize: 30,
         margin: 20
-    }
+    } as const
 
     const top = {
         position: "absolute",
@@ -27,7 +36,7 @@ const Display = ({ url, explanation, title, fadeIn, setFadeIn }) => {
         width: "100%",
         color: "white",
         margin: 20
-    }
+    } as const
 
     const container = {
         position: "relative",
@@ -36,7 +45,7 @@ const Display = ({ url, explanation, title, fadeIn, setFadeIn }) => {
         height: "100%",
         justifyContent: "center",
         justifyItems: "center"
-    }
+    } as const
 
     return (
         <Fade in={fadeIn} tag="div">

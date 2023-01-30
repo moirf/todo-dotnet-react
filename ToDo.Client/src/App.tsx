@@ -8,7 +8,7 @@ interface IProps {
     name: string,
 
 }
-export function App(props: IProps) {
+export default function App() {
 
     const [loggedIn, setLoggedIn] = useState(false);
 

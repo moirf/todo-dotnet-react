@@ -6,7 +6,7 @@ export default class TodoInfoHandler {
     static dueDateSelector = "duedate:"
     static prioritySelector = "priority:"
 
-    static validate(todoInfo) {
+    static validate(todoInfo: string) {
         const results = todoInfo.split('#')
         let task
         try {
@@ -40,7 +40,7 @@ export default class TodoInfoHandler {
         } catch (err) { return err }
     }
 
-    static parse(todoInfo) {
+    static parse(todoInfo: string) {
         const results = todoInfo.split('#')
 
         let task

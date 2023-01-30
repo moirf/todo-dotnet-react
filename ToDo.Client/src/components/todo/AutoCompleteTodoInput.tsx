@@ -3,7 +3,7 @@ import TodoInfoHandler from "../../utilities/TodoInfoHandler"
 import { Input, InputGroup, Form } from "reactstrap"
 import Selectors from "../../utilities/Selectors"
 
-const AutoCompleteTodoInput = ({ onSubmit }) => {
+const AutoCompleteTodoInput = () => {
     const [input, setInput] = useState("")
     const [error, setError] = useState("")
     const [focus, setFocus] = useState(false)
@@ -12,7 +12,7 @@ const AutoCompleteTodoInput = ({ onSubmit }) => {
     const [chosenIndex, setChosenIndex] = useState(-1)
 
     // Handle key presses whilst input is in focus
-    const keyPressHandler = (event) => {
+    const keyPressHandler = (event:React.KeyboardEvent<HTMLInputElement>) => {
         if (!focus)
             return
         switch (event.key) {
@@ -57,12 +57,12 @@ const AutoCompleteTodoInput = ({ onSubmit }) => {
             setSuggestions([])
             return true
         }
-        setError(error.message)
+        //setError(error?.message)
         return false
     }
 
     // Append the current suggested value to the current task string
-    const appendSuggestion = (value) => {
+    const appendSuggestion = (value:string) => {
         let lastPosition = input.lastIndexOf("#")
         let containsSeparator = lastPosition != -1
         
@@ -77,24 +77,22 @@ const AutoCompleteTodoInput = ({ onSubmit }) => {
         setSuggestions([])
     }
 
-    const updateInput = (value) => {
+    const updateInput = (value: string) => {
         // When user types characters that match an available selector
         // and the characters come after a separator or the start of the 
         // input, display appropriate suggestions
 
-        let suggestions = []
+        let suggestions:string[] = []
 
         if (value.slice(-1) == '#') {
             suggestions = Selectors.filter(selector => !value.includes(selector))
         }
         else {
             const values = value.split('#')
-            const last = values.pop().trim().toLowerCase()
-
+            const last = values?.pop()?.trim().toLowerCase()
+            
             Selectors.forEach(selector => {
-                if (selector.startsWith(last)
-                    && selector !== last
-                    && !value.includes(selector))
+                if (selector.startsWith(last?last:'') && selector !== last && !value.includes(selector))
 
                     suggestions.push(selector)
             })         
@@ -106,7 +104,7 @@ const AutoCompleteTodoInput = ({ onSubmit }) => {
 
     return (
         <div style={{ width: "100%" }}>
-            <Form id="create-todo" onSubmit={(event) => { event.preventDefault(); validate() && onSubmit(input) }}>
+            <Form id="create-todo" onSubmit={(event) => { event.preventDefault(); validate()}}>
                 <div>
                     <h4 className="todo-text"> Create New Todo </h4>
                     <div>
@@ -149,7 +147,7 @@ const AutoCompleteTodoInput = ({ onSubmit }) => {
                             </div>
 
                             <i className="bi-plus-square-fill add-todo-submit"
-                                onClick={() => validate() && onSubmit(input)} />
+                                onClick={() => validate()} />
                         </InputGroup>
                     </div>
 

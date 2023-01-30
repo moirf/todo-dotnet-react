@@ -1,6 +1,6 @@
 export default class DateParser {
 
-    static parseFromTaskString(dateString) {
+    static parseFromTaskString(dateString: string) {
         const dateFields = dateString.split('/')
         const day = parseInt(dateFields[0])
         const month = parseInt(dateFields[1]) - 1
@@ -15,7 +15,7 @@ export default class DateParser {
         return tempDate
     }
 
-    static parseFromInput(dateString) {
+    static parseFromInput(dateString: string) {
         const dateFields = dateString.split('-')
         const year = parseInt(dateFields[0])
         const month = parseInt(dateFields[1]) - 1
@@ -30,17 +30,17 @@ export default class DateParser {
         return tempDate
     }
 
-    static getDateString(date) {
-        let day = date.getDate()
-        let month = date.getMonth() + 1
+    static getDateString(date: Date) {
+        const day = date.getDate()
+        const month = date.getMonth() + 1
         const year = date.getFullYear()
-
+        let res = '${year}'
         if (month < 10)
-            month = '0' + month.toString();
+            res  += '0' + month.toString();
         if (day < 10)
-            day = '0' + day.toString();
+            res += '0' + day.toString();
 
-        return `${year}-${month}-${day}`
+        return res;
     }
 
     static getCurrentDateString() {

@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React, { MouseEventHandler, useState } from "react"
 import DateParser from '../../utilities/DateParser'
 import TodoPriority from '../../utilities/TodoPriority'
 import {
@@ -7,7 +7,19 @@ import {
     ButtonGroup
 } from 'reactstrap'
 
-const TodoEditForm = ({ id, dispatch, editModal, task, dueDate, priority, toggle}) => {
+interface IProps {
+    id: number,
+    dispatch: () => {},
+    editModal: boolean,
+    task: string,
+    dueDate: Date,
+    priority: number,
+    toggle: () => {}
+}
+
+const TodoEditForm = (props: IProps) => {
+
+    const { id, dispatch, editModal, task, dueDate, priority, toggle } = props
     const [editTask, setEditTask] = useState(task)
     const [editDueDate, setEditDueDate] = useState(DateParser.getDateString(dueDate))
     const [editPriority, setEditPriority] = useState(priority)
@@ -19,7 +31,7 @@ const TodoEditForm = ({ id, dispatch, editModal, task, dueDate, priority, toggle
         setEditPriority(priority)
     }
 
-    const updateDueDate = (numDays) => {
+    const updateDueDate = (numDays: number) => {
         const date = new Date(editDueDate)
         // By default parsing the output of the date input field
         // produces a date that lags by 1 day
@@ -30,7 +42,7 @@ const TodoEditForm = ({ id, dispatch, editModal, task, dueDate, priority, toggle
 
     return (
         <Modal isOpen={editModal} returnFocusAfterClose={focusAfterClose}>
-            <Form onSubmit={(event) => { event.preventDefault(); toggle(); dispatch({ type: "EDIT_CONFIRM", payload: { todo: { id, editTask, editDueDate, editPriority } } }) }}>
+            <Form onSubmit={(event) => { /*event.preventDefault(); toggle(); dispatch({ type: "EDIT_CONFIRM", payload: { todo: { id, editTask, editDueDate, editPriority } } }) */}}>
                 <ModalHeader close={<br />} toggle={toggle}>Edit Todo</ModalHeader>
                 <ModalBody>
                     <FormGroup>
@@ -64,9 +76,9 @@ const TodoEditForm = ({ id, dispatch, editModal, task, dueDate, priority, toggle
                     <FormGroup>
                         <label htmlFor="editPriority" style={{ width: 100 }}>Priority: </label>
                         <ButtonGroup>
-                            <Button style={{ marginRight: 10 }} size="sm" outline color="danger"  onClick={() => setEditPriority(TodoPriority.HIGH)} active={editPriority === TodoPriority.HIGH}><b>High</b></Button>
+                            <Button style={{ marginRight: 10 }} size="sm" outline color="danger" onClick={() => setEditPriority(TodoPriority.HIGH)} active={editPriority === TodoPriority.HIGH}><b>High</b></Button>
                             <Button style={{ marginRight: 10 }} size="sm" outline color="warning" onClick={() => setEditPriority(TodoPriority.MED)} active={editPriority === TodoPriority.MED}><b>Medium</b></Button>
-                            <Button style={{ marginRight: 10 }}  size="sm" outline color="success" onClick={() => setEditPriority(TodoPriority.LOW)} active={editPriority === TodoPriority.LOW}><b>Low</b></Button>
+                            <Button style={{ marginRight: 10 }} size="sm" outline color="success" onClick={() => setEditPriority(TodoPriority.LOW)} active={editPriority === TodoPriority.LOW}><b>Low</b></Button>
                         </ButtonGroup>
                     </FormGroup>
                 </ModalBody>

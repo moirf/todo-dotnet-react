@@ -2,42 +2,47 @@ import React, { Component } from 'react';
 import { Collapse, Container, Navbar, NavbarBrand, NavbarToggler, NavItem, NavLink } from 'reactstrap';
 import { Link } from 'react-router-dom';
 import './NavMenu.css';
+//import AuthService from '../services/AuthService';
+
 
 export class NavMenu extends Component {
     static displayName = NavMenu.name;
 
-    constructor(props) {
-        super(props);
+    constructor() {
+        super({});
 
-        this.toggleNavbar = this.toggleNavbar.bind(this);
-        this.authService = props.authService;
+        // this.toggleNavbar = this.toggleNavbar.bind(this);
+        //this.authService = props.authService;
         this.state = {
             collapsed: true
         };
     }
 
     invokeSignInEvent = () => {
-        this.authService.Authenticate()
+        //this.authService.Authenticate()
     }
 
     invokeSignOutEvent = () => {
-        this.authService.SignOut()
+        //this.authService.SignOut()
     }
 
-    toggleNavbar() {
-        this.setState({
-            collapsed: !this.state.collapsed
-        });
-    }
+    // toggleNavbar() {
+    //     this.setState({
+    //         collapsed: !this.state.collapsed
+    //     });
 
+    handleClick = () =>
+    {
+        //place holder
+    }
     render() {
         return (
             <header>
                 <Navbar className="navbar-expand-sm navbar-toggleable-sm ng-white border-bottom box-shadow" light>
                     <Container>
                         <NavbarBrand tag={Link} to="/">Todo App</NavbarBrand>
-                        <NavbarToggler onClick={this.toggleNavbar} className="mr-2" />
-                        <Collapse className="d-sm-inline-flex flex-sm-row-reverse" isOpen={!this.state.collapsed} navbar>
+                        <NavbarToggler onClick={this.handleClick} className="mr-2" />
+                        {/* <Collapse className="d-sm-inline-flex flex-sm-row-reverse" isOpen={!this.state.collapsed} navbar>
                             <ul className="navbar-nav flex-grow">
                                 {this.authService.account &&
                                     <NavItem>
@@ -49,7 +54,7 @@ export class NavMenu extends Component {
                                         : <NavLink onClick={() => this.invokeSignInEvent()} tag={Link} className="text-dark">Sign in</NavLink>}
                                 </NavItem>
                             </ul>
-                        </Collapse>
+                        </Collapse> */}
                     </Container>
                 </Navbar>
             </header>
