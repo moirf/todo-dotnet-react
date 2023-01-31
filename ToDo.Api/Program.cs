@@ -19,6 +19,18 @@ builder.Services.AddDbContext<TodosDbContext>(options =>
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+var TodoApiCorsPolicy = "TodoApiCorsPolicy";
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy(name: TodoApiCorsPolicy,
+                      policy  =>
+                      {
+                          policy.WithOrigins("http://localhost:8080","http://localhost:3000")
+                          .AllowAnyHeader()
+                          .AllowAnyMethod();
+                      });
+});
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -29,9 +41,9 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
-
+app.UseRouting();
+app.UseCors(TodoApiCorsPolicy);
 app.UseAuthorization();
-
 app.MapControllers();
 
 app.Run();

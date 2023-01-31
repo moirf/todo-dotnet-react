@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 using ToDo.Repositories;
 
@@ -25,6 +26,7 @@ public class TodosController : ControllerBase
     }
 
     [HttpGet]
+    [EnableCors("TodoApiCorsPolicy")]
     //[Authorize(Roles = "User, Admin")]
     public async Task<ActionResult> GetTodosAsync()
     {
