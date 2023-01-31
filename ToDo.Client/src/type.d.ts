@@ -1,10 +1,8 @@
 interface ITodo {
-    _id: string
-    name: string
-    description: string
-    status: boolean
-    createdAt?: string
-    updatedAt?: string
+    id: number
+    task: string
+    dueDate: Date
+    completed: boolean
   }
   
   interface TodoProps {
@@ -12,8 +10,5 @@ interface ITodo {
   }
   
   type ApiDataType = {
-    message: string
-    status: string
     todos: ITodo[]
-    todo?: ITodo
   }

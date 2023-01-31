@@ -1,22 +1,36 @@
-import React, { Component } from 'react';
+import React, { Component, useEffect, useState } from 'react';
 import './custom.css'
 import './bootstrap-icons.css'
-import { useState } from 'react';
 import { Layout } from './components/Layout';
+import TodoApi from './services/TodoApi'
 
 interface IProps {
-    name: string,
+    todoApi: TodoApi,
 
 }
-export default function App() {
+export default function App(props: IProps) {
 
-    const [loggedIn, setLoggedIn] = useState(false);
+    const [todos, setTodos] = useState<ITodo[]>([])
+
+    const fetchTodos = (): void => {
+        props.todoApi.getTodos()
+            .then(({ data: { todos } }: ITodo[] | any) => {console.log(todos); setTodos(todos)})
+            .catch((err: Error) => console.log(err))
+    }
+
+    useEffect(() => {
+        fetchTodos();
+    }, []
+    )
+
 
 
     return (
-         <div> 
-            <div className="p">Hello</div>
-            <p>This is test</p>
-             </div>
+        <div>
+            Hello....
+            {todos.map((todo: ITodo) => (
+                <p>todo._id</p>
+            ))}
+        </div>
     );
 }
